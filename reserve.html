@@ -19,6 +19,11 @@
             <hr class="my-4 text-center">
             <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
             <a class="btn btn-primary btn-lg text-center" href="./tables.html" role="button">View Tables</a>
+            <button type="button" class="btn btn-outline-dark p-2git ">
+                <span class="glyphicon glyphicon-home">
+
+                </span>
+            </button>
 
         </div>
         <div class="card mb-4">
@@ -32,22 +37,44 @@
                         <input type="name" class="form-control" id="InputName">
                     </div>
                     <div class="form-group">
-                            <label for="InputNumber">Number</label>
-                            <input type="number" class="form-control" id="InputPhone">
-                        </div>
-                    <div class="form-group">
-                        <label for="InputEmail">Email</label>
-                        <input type="email" class="form-control" id="exampleInputEmail1">
+                        <label for="InputNumber">Number</label>
+                        <input type="number" class="form-control" id="InputPhone">
                     </div>
                     <div class="form-group">
-                            <label for="UniqueId">Unique ID</label>
-                            <input type="uniqueID" class="form-control" id="uniqueID">
-                        </div>
+                        <label for="InputEmail">Email</label>
+                        <input type="email" class="form-control" id="InputEmail">
+                    </div>
+                    <div class="form-group">
+                        <label for="UniqueId">Unique ID</label>
+                        <input type="uniqueID" class="form-control" id="uniqueID">
+                    </div>
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
             </div>
         </div>
     </div>
+
+    <script type="text/javascript">
+        // Question: What does this code do?
+        $("#submit").on("click", function (event) {
+            event.preventDefault();
+            var newRezo = {
+                clientName: $("#inputName").val().trim(),
+                clientPhone: $("#inputPhone").val().trim(),
+                clientEmail: $("#inputEmail").val().trim(),
+                uniqueID: $("#uniqueID").val().trim(),
+
+            };
+
+            // Question: What does this code do??
+            $.post("/tables", newRezo)
+                .then(function (data) {
+                    console.log("tables", data);
+                    alert("Booking Reservation...");
+                });
+
+        });
+    </script>
 </body>
 
 </html>

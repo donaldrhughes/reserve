@@ -28,11 +28,6 @@ for (var i = 0; i < res.length; i++) {
 console.table(tables);
 
 
-
-
-
-
-
 //Functions
 //=========================================
 function ex() {

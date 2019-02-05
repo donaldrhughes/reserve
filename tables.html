@@ -23,23 +23,50 @@
         </div>
         <div class="card mb-4">
             <div class="card-header">
-                Current Reservation
+                Reservations
             </div>
-            <div class="card-body">
+            <div class="card-body ">
+                <div>
+                    <div id="inputName">
+                        <label for="inputName">Name: </label>
+
+                    </div>
+                </div>
+                <div>
+                    <div id="inputPhone">
+                        <label for="inputPhone">Phone: </label>
+
+                    </div>
+                </div>
+                <div>
+                    <div id="uniqueID">
+                        <label for="uniqueID">Unique ID: </label>
+
+                    </div>
+                </div>
+
 
             </div>
         </div>
         <div class="card mb-4">
             <div class="card-header">
-                Waiting List 
+                Waiting List
             </div>
             <div class="card-body">
 
             </div>
         </div>
-    </div>
+        <script type="text/javascript">
 
-
+            $.get("/reserve", function (data) {
+                console.log(data);
+                if (data) {
+                    $("#inputName").text(data.name);
+                    $("#inputPhone").text(data.clientPhone);
+                    $("#uniqueID").text(data.uniqueID);
+                }
+            });
+        </script>
 
 </body>
 
