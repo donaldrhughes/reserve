@@ -1,5 +1,6 @@
 //Table constructor
-var Table = function (name, phone, email, unique) {
+var Table = function (route, name, phone, email, unique) {
+    this.route = route;
     this.name = name;
     this.phone = phone;
     this.email = email;

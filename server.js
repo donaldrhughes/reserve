@@ -14,41 +14,73 @@ var PORT = process.env.PORT || 8080;
 
 //loads express and routes
 ex();
-var name = "";
-var phone = "888-555-1212";
-var email = "me@me.com";
-var unique = Math.floor(Math.random() * 10000);
 
-var tables = [];
-for (var i = 0; i < res.length; i++) {
- 
-    var table = new Table(name, phone, email, unique)
-    tables.push(table);
-}
-console.table(tables);
+
+
+// Displays all tables
+
+
+
 
 
 //Functions
 //=========================================
 function ex() {
+    var route = "tables";
+var name = "";
+var phone = "888-555-1212";
+var email = "me@me.com";
+
+
+var tables = [];
+for (var i = 0; i < 5; i++) {
+ 
+    var table = new Table(route[i], name, phone, email, Math.floor(Math.random() * 10000))
+    tables.push(table);
+}
+console.table(tables);
     // Sets up the Express app to handle data parsing
     app.use(express.urlencoded({ extended: true }));
     app.use(express.json());
 
     // Basic route that sends the user first to the AJAX Page
     app.get("/", function (req, res) {
-        // res.send("Hot Reservations!")
+    
         res.sendFile(path.join(__dirname, "home.html"));
     });
 
-    app.get("/reserve", function (req, res) {
-        // res.send("Hot Reservations!")
+    app.get("/reserve", function(req, res) {
         res.sendFile(path.join(__dirname, "reserve.html"));
-    });
-    app.get("/tables", function (req, res) {
-        // res.send("Hot Reservations!")
+        return res.json(tables);
+      });
+
+    app.get("/reserve/:tab", function(req, res) {
+        var chosen = req.params.tab;
+      
+        console.log(chosen);
+      
+        for (var i = 0; i < tables.length; i++) {
+          if (chosen === tables[i].route) {
+            return res.json(tables[i]);
+          }
+        }
+      
+        return res.json(false);
+      });
+    app.post("/tables", function(req, res) {
+        // req.body hosts is equal to the JSON post sent from the user
+        // This works because of our body-parser middleware
         res.sendFile(path.join(__dirname, "tables.html"));
-    });
+        var newtable = req.body;
+      
+        console.log(newtable);
+      
+        // We then add the json the user sent to the character array
+        tables.push(newtable);
+      
+        // We then display the JSON to the users
+        res.json(newtable);
+      });
 
     // Starts the server to begin listening
     // =============================================================
